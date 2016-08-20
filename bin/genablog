@@ -1,0 +1,153 @@
+#!/usr/bin/env ruby
+require_relative '../lib/genablog.rb'
+
+help_msg = <<EOS
+Genablog - Stupid Blogging Software
+-------------------------------------------------------------------------------
+How to use:
+
+genablog help
+  Display help message
+
+genablog help all
+  Display full help message
+
+genablog newblog /PATH/TO/NEW/BLOG
+  Create a new genablog at given path. User will be prompetd for details
+
+genablog newentry /PATH/TO/BLOG TITLE TAG1 TAG2 TAG3 ...
+  Creates a new blog entry at genablog /PATH/TO/BLOG with given title and tags
+
+genablog compile /PATH/TO/BLOG
+  Compiles a new output blog in given genablog
+  (For more information, see below or run genablog help all)
+
+-------------------------------------------------------------------------------
+EOS
+help_msg_extra =<<EOS
+Genablog File Structure:
+MyGenablog
+|--in
+|  |--header.html
+|  |--footer.html
+|  |--genablog.cfg
+|  |--assets
+|  |  |--blog.css
+|  |  |--img.png
+|  |  `--...
+|  |--blog
+|  |  |--Entry1
+|  |  |  |--body.html
+|  |  |  |--meta.cfg
+|  |  |  `--assets
+|  |  |--Entry2
+|  |  |--Entry3
+|  |  `--...
+|  `--static
+|     |--about.html
+|     `--...
+`--out/
+   `--20160101
+      |--index.html
+      |--about.html
+      |     |--tags.html
+      |--years
+      |  |--2016.html
+      |  |--2015.html
+      |  `--...
+      |--blog
+      |  |--Entry1.html
+      |  |--Entry2.html
+      |  |--Entry3.html
+      |  `--...
+      |--tags
+      |  |--tag1.html
+      |  |--tag2.html
+      |  `--...
+      `--assets
+         |--_global
+         |  |--blog.css
+         |  |--img.png
+         |  `--...
+         |--Entry1
+         |  |--img.png
+         |  `--...
+         `--...
+
+MyGenablog/in/header.html
+  HTML File that will be added to the top of all pages.
+
+MyGenablog/in/footer.html
+  HTML File that will be added to the bottom of all pages
+
+MyGenablog/in/genablog.cfg
+  Add blog configruations here:
+  title:Blog Title
+    Title of the blog
+  author:Your Name
+    Default author
+  navlist:about,list
+    List of static pages to appear on every page
+
+MyGenablog/in/assets
+  Put global blog assets here
+
+MyGenablog/in/blog
+  Each directory under blog should be an individual blog entry
+
+MyGenablog/in/blog/BlogEntry/body.html
+  HTML file containing blog entry's content
+
+MyGenablog/in/blog/BlogEntry/meta.cfg
+  Add configurations for individual blog entries here
+  title:Title
+    Blog entry's title
+  date:20160701
+    Date that blog entry was written
+  author:Your Name
+    Author of this blog entry
+    Use this field to override default author for mult-author blogs
+  tags:tag1,tag2,tag3,...
+    Comma separated list of Blog entry's tags
+
+MyGenablog/in/blog/BlogEntry/assets
+  Place blog entrie's assets here
+
+MyGenablog/in/static
+  Place html files that you would like to be a part of a blog, but not a
+  blog entry. (Example: about page, links page, etc).
+  Add the page to the navlist variable in the blog's genablog.cfg file to add
+  it to the top bar.
+
+MyGenablog/out
+  After running genablog compile, a timestamped web page will be added to this
+  directory.
+
+EOS
+
+if ARGV.length < 2
+  puts help_msg
+  exit 0
+end
+
+case ARGV[0]
+when "help"
+  puts help_msg
+  puts help_msg_extra if ARGV[1] == "all"
+when "newblog"
+  creator = Genablog::GenablogCreator.new
+  creator.create_new_blog ARGV[1]
+when "newentry"
+  creator = Genablog::GenablogCreator.new
+  if ARGV.length == 2
+    puts "Title for new blog entry: "
+    title = STDIN.gets.chomp
+  else
+    title = ARGV[2]
+  end
+  creator.create_new_blog_entry(ARGV[1], title, ARGV.drop(3))
+when "compile"
+  genablog = Genablog::Blog.new(ARGV[1])
+  genablog.read_all!
+  genablog.write_all
+end
