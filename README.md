@@ -1,0 +1,2 @@
+# genablog
+Stupid simple blogging
