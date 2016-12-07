@@ -147,9 +147,13 @@ when "newentry"
   else
     title = ARGV[2]
   end
+  puts "Creating new blog entry #{title} for #{ARGV[1]}}"
   creator.create_new_blog_entry(ARGV[1], title, ARGV.drop(3))
+  puts "Done!"
 when "compile"
+  puts "Compiling #{ARGV[1]}"
   genablog = Genablog::Blog.new(ARGV[1])
   genablog.read_all!
   genablog.write_all
+  puts "Done!"
 end
