@@ -135,8 +135,10 @@ when "help"
   puts help_msg
   puts help_msg_extra if ARGV[1] == "all"
 when "newblog"
+  puts "Creating new blog at #{ARGV[1]}"
   creator = Genablog::GenablogCreator.new
   creator.create_new_blog ARGV[1]
+  puts "Done!"
 when "newentry"
   creator = Genablog::GenablogCreator.new
   if ARGV.length == 2
