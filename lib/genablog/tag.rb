@@ -45,7 +45,7 @@ class Genablog::Tag
   #
   # Returns the page name as a string
   def get_page_name
-    @label.gsub(/\s/,'_') + ".html"
+    @label.gsub(/\s/,'_').gsub(/[^a-zA-Z0-9_]/,'') + ".html"
   end
 
 end
