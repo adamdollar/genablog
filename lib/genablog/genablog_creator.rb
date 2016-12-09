@@ -6,6 +6,7 @@ class Genablog::GenablogCreator
 <html>
 <link rel="stylesheet" type="text/css" href="assets/_global/blog.css">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
 <h1>Welcome to my blog</h1>
