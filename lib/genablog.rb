@@ -1,5 +1,5 @@
 module Genablog
-  VERSION = "0.1.0"
+  VERSION = "1.0.0"
   require_relative './genablog/blog.rb'
   require_relative './genablog/webpage.rb'
   require_relative './genablog/blogpage.rb'

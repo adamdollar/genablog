@@ -1,7 +1,5 @@
 # genablog
 
-NOTICE: This software is still under development.  I will iron out the bugs over time.
-
 Stupid simple blogging  
 
 Genablog is a very simple blogging tool.  It can be used to manage html/css/javascript blogs that do not require a database backend.  
