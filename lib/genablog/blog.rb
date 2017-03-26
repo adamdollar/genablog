@@ -250,12 +250,12 @@ class Genablog::Blog
                          "</span><br/>\n"
           index_out.write month_header
         end
-        link = '<a class=\'gb_link\' href=\'' +
+        link = '<p><a class=\'gb_link\' href=\'' +
                @@GENABLOG_OUT_BLOG_DIRECTORY +
                webpage.get_page_name +
                '\'>' +
                webpage.get_title +
-               "</a><br/>\n"
+               "</a><br/></p>\n"
 
         index_out.write link
       else
