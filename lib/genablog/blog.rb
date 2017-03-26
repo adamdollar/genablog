@@ -282,12 +282,12 @@ class Genablog::Blog
     tags_out = File.open("#{@output_run_directory}tags.html", "w")
     write_header(tags_out, 0)
     tags_out.write "<div class=\'gb_link_area\'>\n"
-    tags_out.write "<div class=\'gb_link_grouping\'>"
     tags_i = '?'
     @tags.each do |tag|
       if tag.get_label.length > 0 && ( tags_i <=> tag.get_label[0] ) == -1
+        tag_header = tags_i == "?" ? "" : "</div>"
         tags_i = tag.get_label[0]
-        tag_header = "</div>\n<div class=\'gb_link_grouping\'>" +
+        tag_header = "#{tag_header}\n<div class=\'gb_link_grouping\'>" +
                      '<span class=\'gb_header\'>' +
                      tags_i.upcase +
                      "</span><br/>\n"
