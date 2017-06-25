@@ -3,7 +3,7 @@ version: 0.2
 phases:
   build:
     commands:
-      - zip genablog
+      - zip bin lib
       
 artifacts:
   files:
