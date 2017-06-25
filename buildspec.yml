@@ -3,8 +3,8 @@ version: 0.2
 phases:
   build:
     commands:
-      - zip genablog.zip bin lib
+      - tar -czvf genablog.tar.gz bin lib
       
 artifacts:
   files:
-    - genablog.zip
+    - genablog.tar.gz
